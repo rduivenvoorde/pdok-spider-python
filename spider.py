@@ -112,6 +112,22 @@ def get_cap(result):
 
 
 def get_wms_cap(result):
+    def convert_layer(lyr):
+        return {
+            "name": lyr,
+            "title": wms[lyr].title,
+            "style": list(wms[lyr].styles.keys())[0]
+            if len(list(wms[lyr].styles.keys())) > 0
+            else "",
+            "crs": ",".join([x[4] for x in wms[lyr].crs_list]),
+            "minscale": wms[lyr].min_scale_denominator.text
+            if wms[lyr].min_scale_denominator is not None
+            else "",
+            "maxscale": wms[lyr].max_scale_denominator.text
+            if wms[lyr].max_scale_denominator is not None
+            else "",
+        }
+
     try:
         url = result["url"]
         logging.info(url)
@@ -124,23 +140,7 @@ def get_wms_cap(result):
         layers = list(wms.contents)
         result["title"] = title
         result["abstract"] = abstract
-        result["layers"] = [
-            {
-                "name": lyr,
-                "title": wms[lyr].title,
-                "style": list(wms[lyr].styles.keys())[0]
-                if len(list(wms[lyr].styles.keys())) > 0
-                else "",
-                "crs": ",".join([x[4] for x in wms[lyr].crs_list]),
-                "minscale": wms[lyr].min_scale_denominator.text
-                if wms[lyr].min_scale_denominator is not None
-                else "",
-                "maxscale": wms[lyr].max_scale_denominator.text
-                if wms[lyr].max_scale_denominator is not None
-                else "",
-            }
-            for lyr in layers
-        ]
+        result["layers"] = list(map(convert_layer, layers))
         result["keywords"] = keywords
     except xml.etree.ElementTree.ParseError:
         md_id = result["mdId"]
@@ -151,6 +151,14 @@ def get_wms_cap(result):
 
 
 def get_wmts_cap(result):
+    def convert_layer(lyr):
+        return {
+            "name": lyr,
+            "title": wmts[lyr].title,
+            "tilematrixsets": ",".join(list(wmts[lyr].tilematrixsetlinks.keys())),
+            "imgformats": ",".join(wmts[lyr].formats),
+        }
+
     try:
         url = result["url"]
         md_id = result["mdId"]
@@ -161,15 +169,7 @@ def get_wmts_cap(result):
         layers = list(wmts.contents)
         result["title"] = title
         result["abstract"] = abstract
-        result["layers"] = [
-            {
-                "name": lyr,
-                "title": wmts[lyr].title,
-                "tilematrixsets": ",".join(list(wmts[lyr].tilematrixsetlinks.keys())),
-                "imgformats": ",".join(wmts[lyr].formats),
-            }
-            for lyr in layers
-        ]
+        result["layers"] = list(map(convert_layer, layers))
         result["keywords"] = keywords
     except AttributeError:
         message = f"error occcured processing WMTS service, id: {md_id}, url: {url}"
@@ -230,16 +230,13 @@ def main(out_file, number_records):
     get_record_results_filtered = [
         value for key, value in new_dict.items()
     ]  # remove duplicate services
-
     loop = asyncio.get_event_loop()
     future = asyncio.ensure_future(
         get_data_asynchronous(get_record_results_filtered, get_cap)
     )
     loop.run_until_complete(future)
     cap_results = future.result()
-
     cap_results = filter(lambda x: "layers" in x, cap_results)
-
     config = list(map(flatten_service, cap_results))
     config = [
         item for sublist in config for item in sublist
