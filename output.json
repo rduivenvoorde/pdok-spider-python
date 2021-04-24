@@ -1,0 +1,431 @@
+[
+    {
+        "name": "schelpdierenpercelen",
+        "title": "schelpdierenpercelen",
+        "style": "schelpdierenpercelen:schelpdierenpercelen",
+        "crs": "CRS:84,EPSG:4326,EPSG:4258,EPSG:3035,EPSG:3034,EPSG:3857,EPSG:28992,EPSG:25831,EPSG:25832",
+        "minscale": "",
+        "maxscale": "",
+        "imgformats": "image/png,application/atom+xml,application/json;type=utfgrid,application/pdf,application/rss+xml,application/vnd.google-earth.kml+xml,application/vnd.google-earth.kml+xml;mode=networklink,application/vnd.google-earth.kmz,image/geotiff,image/geotiff8,image/gif,image/jpeg,image/png; mode=8bit,image/svg+xml,image/tiff,image/tiff8,image/vnd.jpeg-png,text/html; subtype=openlayers",
+        "url": "https://geodata.nationaalgeoregister.nl/schelpdierenpercelen/wms?request=GetCapabilities&service=WMS",
+        "servicetitle": "Schelpdierenpercelen",
+        "type": "wms"
+    },
+    {
+        "name": "brtachtergrondkaart",
+        "title": "brtachtergrondkaart",
+        "tilematrixsets": "EPSG:28992,EPSG:3857,EPSG:25831:RWS",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "brtachtergrondkaartgrijs",
+        "title": "brtachtergrondkaartgrijs",
+        "tilematrixsets": "EPSG:28992,EPSG:3857,EPSG:25831:RWS",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "brtachtergrondkaartpastel",
+        "title": "brtachtergrondkaartpastel",
+        "tilematrixsets": "EPSG:28992,EPSG:3857,EPSG:25831:RWS",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "brtachtergrondkaartwater",
+        "title": "brtachtergrondkaartwater",
+        "tilematrixsets": "EPSG:28992,EPSG:3857,EPSG:25831:RWS",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top10nlv2",
+        "title": "top10nlv2",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "natura2000",
+        "title": "natura2000",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "nok2011",
+        "title": "nok2011",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "aan",
+        "title": "aan",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bag",
+        "title": "bag",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top25raster",
+        "title": "top25raster",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top50raster",
+        "title": "top50raster",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top100raster",
+        "title": "top100raster",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top250raster",
+        "title": "top250raster",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top500raster",
+        "title": "top500raster",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "top1000raster",
+        "title": "top1000raster",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "brpgewaspercelen",
+        "title": "brpgewaspercelen",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtstandaardv2",
+        "title": "bgtstandaardv2",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtsymbolenv2",
+        "title": "bgtsymbolenv2",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtplaninformatie",
+        "title": "bgtplaninformatie",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtstandaard",
+        "title": "bgtstandaard",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtachtergrond",
+        "title": "bgtachtergrond",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtomtrekgericht",
+        "title": "bgtomtrekgericht",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "bgtpastel",
+        "title": "bgtpastel",
+        "tilematrixsets": "EPSG:28992:16",
+        "imgformats": "image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn1_100m",
+        "title": "ahn1_100m",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn1_25m",
+        "title": "ahn1_25m",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn1_5m",
+        "title": "ahn1_5m",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn2_5m",
+        "title": "ahn2_5m",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn2_05m_non",
+        "title": "ahn2_05m_non",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn2_05m_int",
+        "title": "ahn2_05m_int",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn2_05m_ruw",
+        "title": "ahn2_05m_ruw",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn3_5m_dsm",
+        "title": "ahn3_5m_dsm",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn3_5m_dtm",
+        "title": "ahn3_5m_dtm",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn3_05m_dsm",
+        "title": "ahn3_05m_dsm",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "ahn3_05m_dtm",
+        "title": "ahn3_05m_dtm",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png,image/png8",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "opentopo",
+        "title": "opentopo",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/jpeg,image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "opentopoachtergrondkaart",
+        "title": "opentopoachtergrondkaart",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/jpeg,image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "2016_ortho25",
+        "title": "2016_ortho25",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/jpeg",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "2016_ortho25IR",
+        "title": "2016_ortho25IR",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/jpeg",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "2017_ortho25",
+        "title": "2017_ortho25",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/jpeg",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "2017_ortho25IR",
+        "title": "2017_ortho25IR",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/jpeg",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "lufolabels",
+        "title": "lufolabels",
+        "tilematrixsets": "EPSG:28992",
+        "imgformats": "image/png",
+        "servicetitle": "Web Map Tile Service",
+        "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts?request=GetCapabilities&service=WMTS",
+        "type": "wmts"
+    },
+    {
+        "name": "lnight",
+        "title": "lnight",
+        "style": "Spoorwegen_Lnight",
+        "crs": "EPSG:28992,EPSG:25831,EPSG:25832,EPSG:3034,EPSG:3035,EPSG:3857,EPSG:4258,EPSG:4326,CRS:84",
+        "minscale": "",
+        "maxscale": "",
+        "imgformats": "image/png,image/jpeg,image/png; mode=8bit,image/vnd.jpeg-png,image/vnd.jpeg-png8",
+        "url": "https://geodata.nationaalgeoregister.nl/ienw/geluidskaartspoorwegennacht/v1/wms?request=GetCapabilities&service=WMS",
+        "servicetitle": "Geluidblootstelling van het hoofdspoorwegennet Lnight",
+        "type": "wms"
+    },
+    {
+        "name": "PS.ProtectedSitesNatureConservation",
+        "title": "Protected Sites \u2013 Protected Sites",
+        "style": "PS.ProtectedSite.Default",
+        "crs": "CRS:84,EPSG:3857,EPSG:4326,EPSG:4258,EPSG:3035,EPSG:3034,EPSG:28992,EPSG:25831,EPSG:25832",
+        "minscale": "",
+        "maxscale": "",
+        "imgformats": "image/png,application/atom+xml,application/json;type=utfgrid,application/pdf,application/rss+xml,application/vnd.google-earth.kml+xml,application/vnd.google-earth.kml+xml;mode=networklink,application/vnd.google-earth.kmz,image/geotiff,image/geotiff8,image/gif,image/jpeg,image/png; mode=8bit,image/svg+xml,image/tiff,image/tiff8,image/vnd.jpeg-png,text/html; subtype=openlayers,text/html; subtype=openlayers2,text/html; subtype=openlayers3",
+        "url": "https://geodata.nationaalgeoregister.nl/inspire/ps-rvo-np/wms?request=GetCapabilities&service=WMS",
+        "servicetitle": "Beschermde Gebieden Nationale Parken (INSPIRE Geharmoniseerd)",
+        "type": "wms"
+    },
+    {
+        "name": "schiphol_lnight",
+        "title": "schiphol_lnight",
+        "style": "Schiphol_Lnight",
+        "crs": "EPSG:28992,EPSG:25831,EPSG:25832,EPSG:3034,EPSG:3035,EPSG:3857,EPSG:4258,EPSG:4326,CRS:84",
+        "minscale": "",
+        "maxscale": "",
+        "imgformats": "image/png,image/jpeg,image/png; mode=8bit,image/vnd.jpeg-png,image/vnd.jpeg-png8",
+        "url": "https://geodata.nationaalgeoregister.nl/ienw/geluidskaartschipholnacht/v2/wms?request=GetCapabilities&service=WMS",
+        "servicetitle": "Geluidkaart Schiphol 2016 (Lnight)",
+        "type": "wms"
+    },
+    {
+        "name": "inspireadressen",
+        "title": "inspireadressen",
+        "style": "adressen:adressen",
+        "crs": "EPSG:28992,EPSG:25831,EPSG:25832,EPSG:3034,EPSG:3035,EPSG:3857,EPSG:4258,EPSG:4326,CRS:84",
+        "minscale": "",
+        "maxscale": "",
+        "imgformats": "image/png,image/jpeg,image/png; mode=8bit,image/vnd.jpeg-png,image/vnd.jpeg-png8",
+        "url": "https://geodata.nationaalgeoregister.nl/inspireadressen/v2/wms?request=GetCapabilities&service=WMS",
+        "servicetitle": "Adressen WMS",
+        "type": "wms"
+    }
+]
