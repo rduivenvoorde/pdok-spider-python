@@ -6,7 +6,6 @@ jobs:
   update-config:
     runs-on: ubuntu-latest
     
-    
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2
@@ -21,15 +20,15 @@ jobs:
         # Optional - x64 or x86 architecture, defaults to x64
         architecture: 'x64'
         
-     - name: Pip Install
-        run: pip install -r requirements.txt
-        working-directory: .
+    - name: Pip Install
+      run: pip install -r requirements.txt
+      working-directory: .
         
-     - name: Run Spider
-        run: ./spider.py data/config.json
-        working-directory: .
+    - name: Run Spider
+      run: ./spider.py data/config.json
+      working-directory: .
 
-     - name: Check For Changes
+    - name: Check For Changes
       id: changes
       uses: UnicornGlobal/has-changes-action@v1.0.11
 
@@ -46,7 +45,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
       if: steps.changes.outputs.changed == 1
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false
+  
