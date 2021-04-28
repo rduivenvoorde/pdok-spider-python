@@ -130,6 +130,7 @@ def get_wms_cap(result):
 
     try:
         url = result["url"]
+        md_id = result["mdId"]
         logging.info(url)
         wms = WebMapService(url, version="1.3.0")
         title = wms.identification.title
@@ -142,10 +143,8 @@ def get_wms_cap(result):
         result["abstract"] = abstract
         result["layers"] = list(map(convert_layer, layers))
         result["keywords"] = keywords
-    except xml.etree.ElementTree.ParseError:
-        md_id = result["mdId"]
-        url = result["url"]
-        message = f"xml.etree.ElementTree.ParseError exception occured for service mdId: {md_id}, url: {url}"
+    except Exception:
+        message = f"exception while retrieving WMS cap for service mdId: {md_id}, url: {url}"
         logging.exception(message)
     return result
 
@@ -171,9 +170,10 @@ def get_wmts_cap(result):
         result["abstract"] = abstract
         result["layers"] = list(map(convert_layer, layers))
         result["keywords"] = keywords
-    except AttributeError:
-        message = f"error occcured processing WMTS service, id: {md_id}, url: {url}"
+    except Exception:
+        message = f"exception while retrieving WMTS cap for service mdId: {md_id}, url: {url}"
         logging.exception(message)
+        
     return result
 
 
@@ -237,7 +237,11 @@ def main(out_file, number_records):
     )
     loop.run_until_complete(future)
     cap_results = future.result()
-    cap_results = filter(lambda x: "layers" in x, cap_results)
+    
+    failed_services = list(filter(lambda x: "layers" not in x, cap_results))
+    failed_svc_urls = map(lambda x: x["url"], failed_services)
+    nr_failed_services = len(failed_services)
+    cap_results = filter(lambda x: "layers" in x, cap_results) # filter out services where getcap req failed
     config = list(map(flatten_service, cap_results))
     config = [
         item for sublist in config for item in sublist
@@ -247,9 +251,13 @@ def main(out_file, number_records):
 
     with open(out_file, "w") as f:
         json.dump(config, f, indent=4)
+    
+    logging.info(f"indexed {nr_services} services with {nr_layers} layers") 
+    logging.info(f"failed to index {nr_failed_services} services")
+    failed_svc_urls_str = "\n".join(failed_svc_urls)
+    logging.info(f"failed service urls:\n {failed_svc_urls_str}")
     logging.info(f"output written to {out_file}")
-    logging.info(f"indexed {nr_services} services with {nr_layers} layers") # TODO: count number of services that failed to index
-
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Validate XML against schema")
