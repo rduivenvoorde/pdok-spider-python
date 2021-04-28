@@ -226,10 +226,11 @@ def main(out_file, number_records):
     for obj in get_record_results:
         if obj["url"] not in new_dict:
             new_dict[obj["url"]] = obj
-
     get_record_results_filtered = [
         value for key, value in new_dict.items()
-    ]  # remove duplicate services
+    ]  
+    nr_services = len(get_record_results_filtered)
+
     loop = asyncio.get_event_loop()
     future = asyncio.ensure_future(
         get_data_asynchronous(get_record_results_filtered, get_cap)
@@ -241,9 +242,13 @@ def main(out_file, number_records):
     config = [
         item for sublist in config for item in sublist
     ]  # remove nesting due to flattening
+
+    nr_layers = len(config)
+
     with open(out_file, "w") as f:
         json.dump(config, f, indent=4)
     logging.info(f"output written to {out_file}")
+    logging.info(f"indexed {nr_services} services with {nr_layers} layers") # TODO: count number of services that failed to index
 
 
 if __name__ == "__main__":
