@@ -1,0 +1,52 @@
+name: Update Config
+on:
+  schedule:    
+  - cron: '0 0 * * *'
+jobs:
+  update-config:
+    runs-on: ubuntu-latest
+    
+    
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v2
+      with:
+        # Semantic version range syntax or exact version of a Python version
+        python-version: '3.x'
+        # Optional - x64 or x86 architecture, defaults to x64
+        architecture: 'x64'
+        
+     - name: Pip Install
+        run: pip install -r requirements.txt
+        working-directory: .
+        
+     - name: Run Spider
+        run: ./spider.py data/config.json
+        working-directory: .
+
+     - name: Check For Changes
+      id: changes
+      uses: UnicornGlobal/has-changes-action@v1.0.11
+
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "update service config $(date +%F)" -a
+      if: steps.changes.outputs.changed == 1
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+      if: steps.changes.outputs.changed == 1
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
