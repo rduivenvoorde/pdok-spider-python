@@ -50,6 +50,7 @@ def get_csw_results(protocol, maxresults=0):
             start = csw.results["nextrecord"]
             continue
         break
+    logging.info(f"Found {len(md_ids)} results for protocol {protocol}")
     return md_ids
 
 
@@ -161,6 +162,7 @@ def get_wmts_cap(result):
     try:
         url = result["url"]
         md_id = result["mdId"]
+        logging.info(url)
         wmts = WebMapTileService(url)
         title = wmts.identification.title
         abstract = wmts.identification.abstract
@@ -184,12 +186,18 @@ def flatten_service(service):
             layer[field] = service[field]
         layer["servicetitle"] = service["title"]
         layer["type"] = service["protocol"].split(":")[1].lower()
+        layer["layers"] = layer["name"]
+        layer["abstract"] = service["abstract"] if (not None) else ""
+        layer["md_id"] = service["mdId"]
         return layer
 
     def flatten_layer_wmts(layer):
         layer["servicetitle"] = service["title"]
         layer["url"] = service["url"]
         layer["type"] = service["protocol"].split(":")[1].lower()
+        layer["layers"] = layer["name"]
+        layer["abstract"] = service["abstract"] if (not None) else ""
+        layer["md_id"] = service["mdId"]
         return layer
 
     def flatten_layer(layer):
@@ -251,7 +259,7 @@ def main(out_file, number_records):
 
     with open(out_file, "w") as f:
         json.dump(config, f, indent=4)
-    
+
     logging.info(f"indexed {nr_services} services with {nr_layers} layers") 
     logging.info(f"failed to index {nr_failed_services} services")
     failed_svc_urls_str = "\n".join(failed_svc_urls)
