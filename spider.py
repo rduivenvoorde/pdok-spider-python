@@ -10,10 +10,11 @@ import requests
 from owslib.csw import CatalogueServiceWeb
 from owslib.wms import WebMapService
 from owslib.wmts import WebMapTileService
+from owslib.wfs import WebFeatureService
 
 CSW_URL = "https://nationaalgeoregister.nl/geonetwork/srv/dut/csw"
 LOG_LEVEL = "INFO"
-PROTOCOLS = ["OGC:WMS", "OGC:WMTS"]
+PROTOCOLS = ["OGC:WMS", "OGC:WFS", "OGC:WMTS"]
 
 logging.basicConfig(
     level=LOG_LEVEL,
@@ -37,6 +38,8 @@ def get_csw_results(protocol, maxresults=0):
     svc_owner = "Beheer PDOK"
     query = (
         f"type='service' AND organisationName='{svc_owner}' AND protocol='{protocol}'"
+        # to be able to check specific services:
+        #f"type='service' AND organisationName='{svc_owner}' AND protocol='{protocol}' AND any='zeegras'"
     )
     md_ids = []
     start = 1
@@ -101,7 +104,7 @@ async def get_data_asynchronous(results, fun):
 
 
 def get_cap(result):
-    function_mapping = {"OGC:WMS": get_wms_cap, "OGC:WMTS": get_wmts_cap}
+    function_mapping = {"OGC:WMS": get_wms_cap, "OGC:WFS": get_wfs_cap, "OGC:WMTS": get_wmts_cap}
     try:
         result = function_mapping[result["protocol"]](result)
     except requests.exceptions.SSLError:
@@ -109,6 +112,34 @@ def get_cap(result):
         url = result["url"]
         message = f"requests.exceptions.SSLError occured while retrieving capabilities for service mdID {md_id} and url {url}"
         logging.error(message)
+    return result
+
+def get_wfs_cap(result):
+    def convert_layer(lyr):
+        return {
+            "name": lyr,
+            "title": wfs[lyr].title,
+            "layers": wfs[lyr].id
+        }
+
+    try:
+        url = result["url"]
+        md_id = result["mdId"]
+        logging.info(url)
+        wfs = WebFeatureService(url, version="2.0.0")
+        title = wfs.identification.title
+        abstract = wfs.identification.abstract
+        keywords = wfs.identification.keywords
+        getfeature_op = next((x for x in wfs.operations if x.name == "GetFeature"), None)
+        result["formats"] = ",".join(getfeature_op.formatOptions)
+        layers = list(wfs.contents)
+        result["title"] = title
+        result["abstract"] = abstract
+        result["layers"] = list(map(convert_layer, layers))
+        result["keywords"] = keywords
+    except Exception:
+        message = f"exception while retrieving WFS cap for service mdId: {md_id}, url: {url}"
+        logging.exception(message)
     return result
 
 
@@ -191,6 +222,17 @@ def flatten_service(service):
         layer["md_id"] = service["mdId"]
         return layer
 
+    def flatten_layer_wfs(layer):
+        fields = ["url"]
+        for field in fields:
+            layer[field] = service[field]
+        layer["servicetitle"] = service["title"]
+        layer["type"] = service["protocol"].split(":")[1].lower()
+        layer["layers"] = layer["name"]
+        layer["abstract"] = service["abstract"] if (not None) else ""
+        layer["md_id"] = service["mdId"]
+        return layer
+
     def flatten_layer_wmts(layer):
         layer["servicetitle"] = service["title"]
         layer["url"] = service["url"]
@@ -203,6 +245,7 @@ def flatten_service(service):
     def flatten_layer(layer):
         fun_mapping = {
             "OGC:WMS": flatten_layer_wms,
+            "OGC:WFS": flatten_layer_wfs,
             "OGC:WMTS": flatten_layer_wmts,
         }
         return fun_mapping[service["protocol"]](layer)
@@ -249,7 +292,7 @@ def main(out_file, number_records):
     failed_services = list(filter(lambda x: "layers" not in x, cap_results))
     failed_svc_urls = map(lambda x: x["url"], failed_services)
     nr_failed_services = len(failed_services)
-    cap_results = filter(lambda x: "layers" in x, cap_results) # filter out services where getcap req failed
+    cap_results = filter(lambda x: "layers" in x, cap_results)  # filter out services where getcap req failed
     config = list(map(flatten_service, cap_results))
     config = [
         item for sublist in config for item in sublist
@@ -264,7 +307,7 @@ def main(out_file, number_records):
     logging.info(f"indexed {nr_services} services with {nr_layers} layers") 
     logging.info(f"failed to index {nr_failed_services} services")
     failed_svc_urls_str = "\n".join(failed_svc_urls)
-    logging.info(f"failed service urls:\n {failed_svc_urls_str}")
+    logging.info(f"failed service urls:\n{failed_svc_urls_str}")
     logging.info(f"output written to {out_file}")
     
 
