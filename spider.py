@@ -11,10 +11,11 @@ from owslib.csw import CatalogueServiceWeb
 from owslib.wms import WebMapService
 from owslib.wmts import WebMapTileService
 from owslib.wfs import WebFeatureService
+from owslib.wcs import WebCoverageService
 
 CSW_URL = "https://nationaalgeoregister.nl/geonetwork/srv/dut/csw"
 LOG_LEVEL = "INFO"
-PROTOCOLS = ["OGC:WMS", "OGC:WFS", "OGC:WMTS"]
+PROTOCOLS = ["OGC:WMS", "OGC:WFS", "OGC:WMTS", "OGC:WCS"]
 
 logging.basicConfig(
     level=LOG_LEVEL,
@@ -104,7 +105,7 @@ async def get_data_asynchronous(results, fun):
 
 
 def get_cap(result):
-    function_mapping = {"OGC:WMS": get_wms_cap, "OGC:WFS": get_wfs_cap, "OGC:WMTS": get_wmts_cap}
+    function_mapping = {"OGC:WMS": get_wms_cap, "OGC:WFS": get_wfs_cap, "OGC:WCS": get_wcs_cap, "OGC:WMTS": get_wmts_cap}
     try:
         result = function_mapping[result["protocol"]](result)
     except requests.exceptions.SSLError:
@@ -112,6 +113,34 @@ def get_cap(result):
         url = result["url"]
         message = f"requests.exceptions.SSLError occured while retrieving capabilities for service mdID {md_id} and url {url}"
         logging.error(message)
+    return result
+
+def get_wcs_cap(result):
+    def convert_layer(lyr):
+        return {
+            "name": lyr,
+            "title": wcs[lyr].title,
+            "layers": wcs[lyr].id
+        }
+
+    try:
+        url = result["url"]
+        md_id = result["mdId"]
+        logging.info(url)
+        wcs = WebCoverageService(url, version="2.0.1")
+        title = wcs.identification.title
+        abstract = wcs.identification.abstract
+        keywords = wcs.identification.keywords
+        getcoverage_op = next((x for x in wcs.operations if x.name == "GetCoverage"), None)
+        result["formats"] = ",".join(getcoverage_op.formatOptions)
+        layers = list(wcs.contents)
+        result["title"] = title
+        result["abstract"] = abstract
+        result["layers"] = list(map(convert_layer, layers))
+        result["keywords"] = keywords
+    except Exception:
+        message = f"exception while retrieving WCS cap for service mdId: {md_id}, url: {url}"
+        logging.exception(message)
     return result
 
 def get_wfs_cap(result):
@@ -222,6 +251,18 @@ def flatten_service(service):
         layer["md_id"] = service["mdId"]
         return layer
 
+    def flatten_layer_wcs(layer):
+        fields = ["url"]
+        for field in fields:
+            layer[field] = service[field]
+        layer["servicetitle"] = service["title"]
+        layer["type"] = service["protocol"].split(":")[1].lower()
+        layer["layers"] = layer["name"]
+        layer["title"] = layer["name"]
+        layer["abstract"] = service["abstract"] if (not None) else ""
+        layer["md_id"] = service["mdId"]
+        return layer
+
     def flatten_layer_wfs(layer):
         fields = ["url"]
         for field in fields:
@@ -246,6 +287,7 @@ def flatten_service(service):
         fun_mapping = {
             "OGC:WMS": flatten_layer_wms,
             "OGC:WFS": flatten_layer_wfs,
+            "OGC:WCS": flatten_layer_wcs,
             "OGC:WMTS": flatten_layer_wmts,
         }
         return fun_mapping[service["protocol"]](layer)
