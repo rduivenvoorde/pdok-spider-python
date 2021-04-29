@@ -258,7 +258,8 @@ def main(out_file, number_records):
     nr_layers = len(config)
 
     with open(out_file, "w") as f:
-        json.dump(config, f, indent=4)
+        services = {"services": config}
+        json.dump(services, f, indent=4)
 
     logging.info(f"indexed {nr_services} services with {nr_layers} layers") 
     logging.info(f"failed to index {nr_failed_services} services")
