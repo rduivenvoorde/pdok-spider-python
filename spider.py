@@ -191,6 +191,9 @@ def get_wms_cap(result):
 
     try:
         url = result["url"]
+        if "://secure" in url:
+            # this is a secure layer not for the general public: ignore
+            return {"url": f' SECURE SERVICE {result["url"]}'}
         md_id = result["mdId"]
         logging.info(url)
         wms = WebMapService(url, version="1.3.0")
@@ -223,6 +226,9 @@ def get_wmts_cap(result):
         url = result["url"]
         md_id = result["mdId"]
         logging.info(url)
+        if "://secure" in url:
+            # this is a secure layer not for the general public: ignore
+            return {"url": f' SECURE SERVICE {result["url"]}'}
         wmts = WebMapTileService(url)
         title = wmts.identification.title
         abstract = wmts.identification.abstract
